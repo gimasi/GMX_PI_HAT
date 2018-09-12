@@ -96,7 +96,7 @@ and copy this content:
             #size-cells = <0>;
             status = "okay";
 
-            sc16is752: sc16is752@4D {
+            sc16is752: serial@4d {
                 compatible = "nxp,sc16is752";
                 reg = <0x4D>; // i2c address
                 clocks = <&sc16is752_clk>;
@@ -105,13 +105,19 @@ and copy this content:
                 gpio-controller;
                 #gpio-cells = <0>;
                 i2c-max-frequency = <400000>;
-      status = "okay";
+                status = "okay";
+            };
+        };
+    };
 
-                sc16is752_clk: sc16is752_clk {
-                    compatible = "fixed-clock";
-                    #clock-cells = <0>;
-                    clock-frequency = <1843200>;
-                };
+    fragment@1 {
+        target-path = "/";
+
+        __overlay__ {
+            sc16is752_clk: sc16is752-clk {
+                compatible = "fixed-clock";
+                clock-frequency = <1843200>;
+                #clock-cells = <0>;
             };
         };
     };
